@@ -1,9 +1,7 @@
 <?php
-
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateGroupUserTable
-extends BaseMigration
+class CreateGroupUserTable extends BaseMigration
 {
     public function up()
     {
@@ -17,7 +15,6 @@ extends BaseMigration
                 ->addTimestamps();
         });
     }
-
     public function down()
     {
         Schema::dropIfExists("group_user");
