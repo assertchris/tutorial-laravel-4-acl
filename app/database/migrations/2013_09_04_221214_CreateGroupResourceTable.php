@@ -1,9 +1,7 @@
 <?php
-
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateGroupResourceTable
-extends BaseMigration
+class CreateGroupResourceTable extends BaseMigration
 {
     public function up()
     {
@@ -17,7 +15,6 @@ extends BaseMigration
                 ->addTimestamps();
         });
     }
-
     public function down()
     {
         Schema::dropIfExists("group_resource");
