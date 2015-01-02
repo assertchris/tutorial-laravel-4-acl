@@ -1,26 +1,28 @@
 <?php
 
-Route::filter("auth", function()
+Route::filter('auth', function()
 {
     if (Auth::guest())
     {
-        return Redirect::route("user/login");
+	    if (Request::ajax())
+	    {
+		    return Response::make('Unauthorized', 401);
+	    }
+	     
+		    return Redirect::guest('/');
     }
-    else
-    {
-        foreach (Auth::user()->groups as $group)
-        {
-            foreach ($group->resources as $resource)
-            {
-                if ($resource->pattern == Route::getCurrentRoute()->getPath())
-                {
-                    return;
-                }
-            }
-        }
 
-        return Redirect::route("user/login");
+    foreach (Auth::user()->groups as $group)
+    {
+	    foreach ($group->resources as $resource)
+	    {
+		    if ($resource->pattern == Route::getCurrentRoute()->getPath())
+		    {
+			    return;
+		    }
+	    }
     }
+     
 });
 
 Route::filter("guest", function()
